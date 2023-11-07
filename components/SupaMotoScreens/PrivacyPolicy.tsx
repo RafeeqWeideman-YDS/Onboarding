@@ -12,7 +12,7 @@ import Header from '@components/Header/Header';
 import Camera from '@icons/camera.svg';
 import Success from '@icons/successcheck.svg';
 import Contract from './Contract';
-import VerifyData from './VerifyData'
+import VerifyData from './VerifyData';
 
 type GetCameraImageProps = {
     onSuccess?: (data?: StepDataType<STEPS.request_onboarding>) => void;

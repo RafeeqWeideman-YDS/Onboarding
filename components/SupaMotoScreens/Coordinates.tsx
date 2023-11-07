@@ -91,7 +91,6 @@ const Coordinates: FC<CoordinatesProps> = ({ lat, lng }) => {
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
                         </form>
                         <Footer onBack={routeBack} onBackUrl='/' onForward={switchRoute} />
