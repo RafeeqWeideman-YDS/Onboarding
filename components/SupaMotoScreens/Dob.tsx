@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Calendar from '@icons/calendar.svg';
 import styles from './SupaMotoScreens.module.scss';
 import IconText from '@components/IconText/IconText';
@@ -22,6 +22,23 @@ const Dob = () => {
     const [selectedDay, setSelectedDay] = useState('');
     const [selectedMonth, setSelectedMonth] = useState<string | null>(null);
     const [selectedYear, setSelectedYear] = useState('');
+
+    useEffect(() => {
+        const storedDay = localStorage.getItem('selectedDay');
+        if (storedDay) {
+            setSelectedDay(storedDay);
+        }
+
+        const storedMonth = localStorage.getItem('selectedMonth');
+        if (storedMonth) {
+            setSelectedMonth(storedMonth);
+        }
+
+        const storedYear = localStorage.getItem('selectedYear');
+        if (storedYear) {
+            setSelectedYear(storedYear);
+        }
+    }, []);
 
     const handleDays = () => {
         setDays(!days);
@@ -50,14 +67,15 @@ const Dob = () => {
                                 <div
                                     onClick={handleDays}
                                     className={styles.dobInput}
-                                >day</div>
+                                >{selectedDay || 'day'}</div>
                                 <div
                                     onClick={handleMonths}
                                     className={styles.dobInput}
-                                >month</div>
+                                >{selectedMonth || 'month'}</div>
                                 <input
                                     className={styles['custom-input']}
                                     type='text' placeholder='year'
+                                    value={selectedYear}
                                     onChange={(e) => setSelectedYear(e.target.value)}
                                 />
                             </div>

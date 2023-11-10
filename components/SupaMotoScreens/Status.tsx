@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Single from '@icons/single.svg';
 import SingleWhite from '@icons/single_white.svg';
 import Married from '@icons/married.svg';
@@ -8,13 +8,21 @@ import styles from './SupaMotoScreens.module.scss';
 import IconText from '@components/IconText/IconText';
 import { useRenderScreen } from '@hooks/useRenderScreen';
 import MonthlyIncome from './MonthlyIncome';
-import HouseHold from './HouseHold';
 import Footer from '@components/Footer/Footer';
+import Gender from './Gender';
 
 const Status = () => {
     const [status, setStatus] = useState('single');
     const [usage, setUsage] = useState("Single");
     const { currentScreen, switchToScreen } = useRenderScreen('status');
+
+    useEffect(() => {
+        const selectedStatus = localStorage.getItem('selectedStatus');
+        if (selectedStatus) {
+            setStatus(selectedStatus);
+            setUsage(selectedStatus === 'single' ? 'Single' : 'Married');
+        }
+    }, []);
 
     const handleStatusChange = (newStatus: React.SetStateAction<string>) => {
         if (typeof newStatus === 'string') {
@@ -70,7 +78,7 @@ const Status = () => {
             case 'monthly_income':
                 return <MonthlyIncome />;
             case 'previous_route':
-                return <HouseHold />
+                return <Gender />
             default:
                 return <>Empty</>;
         }

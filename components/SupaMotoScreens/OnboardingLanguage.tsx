@@ -7,7 +7,7 @@ import { useRenderScreen } from '@hooks/useRenderScreen';
 import Names from './Names';
 
 const OnboardingLanguage = () => {
-    const [selected, setSelected] = useState<string | null>(null);
+    const [selected, setSelected] = useState<string | null>(localStorage.getItem('selectedLanguage'));
     const { currentScreen, switchToScreen } = useRenderScreen('onboarding_language');
 
     const handleButtonClick = (label: string) => {

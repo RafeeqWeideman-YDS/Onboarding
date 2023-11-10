@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Dob from './Dob';
 import Gender from './Gender';
 import Footer from '@components/Footer/Footer';
@@ -12,6 +12,13 @@ import { useRenderScreen } from '@hooks/useRenderScreen';
 const HouseHold = () => {
     const { currentScreen, switchToScreen } = useRenderScreen('household');
     const [count, setCount] = useState(0);
+
+    useEffect(() => {
+        const storedCount = localStorage.getItem('storedHousehold');
+        if (storedCount) {
+            setCount(parseInt(storedCount, 10));
+        }
+    }, []);
 
     const incrementCount = () => {
         setCount(count + 1);

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './SupaMotoScreens.module.scss';
 import Charcoal from '@icons/charcoal.svg';
 import Home from '@icons/home.svg';
@@ -15,6 +15,13 @@ const StoveUsage = () => {
     const [status, setStatus] = useState('Home');
     const [usage, setUsage] = useState("Commercial");
     const { currentScreen, switchToScreen } = useRenderScreen('stove_usage');
+
+    useEffect(() => {
+        const selectedUsage = localStorage.getItem('selectedUsage');
+        if (selectedUsage) {
+            setStatus(selectedUsage);
+        }
+    }, []);
 
     const handleStatusChange = (newStatus: string) => {
         setStatus(newStatus);

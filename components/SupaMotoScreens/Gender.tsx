@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './SupaMotoScreens.module.scss';
 import GenderSvg from '@icons/gender.svg';
 import Male from '@icons/male.svg';
@@ -8,12 +8,20 @@ import FemaleWhite from '@icons/female_white.svg';
 import IconText from '@components/IconText/IconText';
 import { useRenderScreen } from '@hooks/useRenderScreen';
 import Footer from '@components/Footer/Footer';
-import CustomerIdBack from './CustomerIdBack';
 import Status from './Status';
+import HouseHold from './HouseHold';
 
 const Gender = () => {
     const [status, setStatus] = useState('female');
     const { currentScreen, switchToScreen } = useRenderScreen('gender');
+
+    useEffect(() => {
+        const selectedGender = localStorage.getItem('selectedGender');
+        if (selectedGender) {
+            setStatus(selectedGender);
+        }
+    }, []);
+
     const handleStatusChange = (newStatus: React.SetStateAction<string>) => {
         const selectedGender = newStatus.toString();
         setStatus(newStatus);
@@ -57,7 +65,7 @@ const Gender = () => {
             case 'village':
                 return <Status />
             case 'previous_route':
-                return <CustomerIdBack />    
+                return <HouseHold />
             default:
                 return <>Empty</>;
         }

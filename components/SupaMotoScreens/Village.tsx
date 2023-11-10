@@ -1,18 +1,27 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './SupaMotoScreens.module.scss';
 import VillageSvg from '@icons/village.svg';
 import IconText from '@components/IconText/IconText';
-import ProfilePicture from './ProfilePicture';
 import Footer from '@components/Footer/Footer';
-import Gender from './Gender';
 import { useRenderScreen } from '@hooks/useRenderScreen';
+import Verbal from './Verbal';
+import Coordinates from './Coordinates';
 
 const Village = () => {
     const { currentScreen, switchToScreen } = useRenderScreen('village');
     const [village, setVillage] = useState('');
 
-    const handleVillageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setVillage(event.target.value);
+    useEffect(() => {
+        const storedVillage = localStorage.getItem('selectedVillage');
+        if (storedVillage) {
+            setVillage(storedVillage);
+        }
+    }, []);
+
+    const handleVillageChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
+        const value = event.target.value;
+        setVillage(value);
+        localStorage.setItem('village', value);
     };
 
     const renderScreen = () => {
@@ -25,22 +34,23 @@ const Village = () => {
                             <input
                                 className={styles.inputs}
                                 type='text'
+                                value={village}
                                 onChange={handleVillageChange} />
                         </div>
                         <Footer onBack={routeBack} onBackUrl='/' onForward={switchRoute} />
                     </div>
                 )
-            case 'profile_picture':
-                return <ProfilePicture />
+            case 'verbal':
+                return <Verbal />
             case 'previous_route':
-                return <Gender />
+                return <Coordinates />
             default:
                 return <>Empty</>;
         }
     }
     const switchRoute = () => {
         localStorage.setItem('selectedVillage', village);
-        switchToScreen('profile_picture');
+        switchToScreen('verbal');
     };
     const routeBack = () => {
         switchToScreen('previous_route');

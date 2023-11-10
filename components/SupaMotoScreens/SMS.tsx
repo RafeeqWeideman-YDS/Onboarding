@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import SMSSvg from '@icons/smslang.svg'
 import IconText from '@components/IconText/IconText';
 import styles from './SupaMotoScreens.module.scss';
@@ -11,6 +11,13 @@ const SMS = () => {
     const [selected, setSelected] = useState<string | null>(null);
     const { currentScreen, switchToScreen } = useRenderScreen('sms');
 
+    useEffect(() => {
+        const selectedSmsLanguage = localStorage.getItem('selectedSmsLanguage');
+        if (selectedSmsLanguage) {
+            setSelected(selectedSmsLanguage);
+        }
+    }, []);
+
     const handleButtonClick = (label: string) => {
         if (selected === label) {
             setSelected(null);
@@ -20,7 +27,7 @@ const SMS = () => {
             localStorage.setItem('selectedSmsLanguage', label)
         }
     };
-    
+
     const isButtonSelected = (label: string) => {
         return selected === label;
     };

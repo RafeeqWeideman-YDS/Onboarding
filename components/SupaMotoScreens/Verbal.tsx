@@ -1,16 +1,23 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import SMS from './SMS';
 import VerbalSvg from '@icons/verbal.svg';
 import IconText from '@components/IconText/IconText';
 import styles from './SupaMotoScreens.module.scss';
 import { useRenderScreen } from '@hooks/useRenderScreen';
 import Footer from '@components/Footer/Footer';
-import Coordinates from './Coordinates';
+import Village from './Village';
 
 const Verbal = () => {
     const [selected, setSelected] = useState<string | null>(null);
     const { currentScreen, switchToScreen } = useRenderScreen('verbal');
-    
+
+    useEffect(() => {
+        const selectedVerbalLanguage = localStorage.getItem('selectedVerbalLanguage');
+        if (selectedVerbalLanguage) {
+            setSelected(selectedVerbalLanguage);
+        }
+    }, []);
+
     const handleButtonClick = (label: string) => {
         if (selected === label) {
             setSelected(null);
@@ -20,7 +27,7 @@ const Verbal = () => {
             localStorage.setItem('selectedVerbalLanguage', label)
         }
     };
-    
+
     const isButtonSelected = (label: string) => {
         return selected === label;
     };
@@ -71,7 +78,7 @@ const Verbal = () => {
             case 'sms':
                 return <SMS />
             case 'previous_route':
-                return <Coordinates />
+                return <Village />
         }
     }
 

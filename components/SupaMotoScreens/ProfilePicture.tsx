@@ -13,6 +13,7 @@ import Header from '@components/Header/Header';
 import Village from './Village';
 import Customer from '@icons/customer.svg';
 import PrivacyPolicy from './PrivacyPolicy';
+import CustomerIdBack from './CustomerIdBack';
 
 type GetCameraImageProps = {
     onSuccess: (data: StepDataType<STEPS.get_camera_image>) => void;
@@ -108,7 +109,7 @@ const ProfilePicture: FC<GetCameraImageProps> = ({ onSuccess, onBack, Width, Hei
             case 'coordinates':
                 return <Coordinates />
             case 'previous_route':
-                return <Village />
+                return <CustomerIdBack />
         }
     }
 

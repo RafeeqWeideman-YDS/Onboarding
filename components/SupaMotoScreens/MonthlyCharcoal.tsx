@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Charcoal from '@icons/charcoal.svg';
 import styles from './SupaMotoScreens.module.scss';
 import IconText from '@components/IconText/IconText';
@@ -10,6 +10,14 @@ import Footer from '@components/Footer/Footer';
 const MonthlyCharcoal = () => {
     const [amount, setAmount] = useState(0);
     const { currentScreen, switchToScreen } = useRenderScreen('monthly_charcoal');
+
+    useEffect(() => {
+        const monthlyCharcoal = localStorage.getItem('monthlyCharcoal');
+        if (monthlyCharcoal) {
+            setAmount(parseInt(monthlyCharcoal, 10));
+        }
+    }, []);
+
     const handleAmountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const newAmount = parseInt(event.target.value, 10) + 5;
         setAmount(newAmount);

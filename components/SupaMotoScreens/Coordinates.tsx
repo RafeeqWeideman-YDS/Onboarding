@@ -4,10 +4,11 @@ import IconText from '@components/IconText/IconText';
 import Location from '@icons/location.svg';
 import LocationWhite from '@icons/location_white.svg';
 import { useRenderScreen } from '@hooks/useRenderScreen';
-import Verbal from './Verbal';
 import Footer from '@components/Footer/Footer';
 import ProfilePicture from './ProfilePicture';
-import { ComposableMap, Geographies, Geography, Marker } from 'react-simple-maps';
+// import { ComposableMap, Geographies, Geography, Marker } from 'react-simple-maps';
+import osm from 'osm';
+import Village from './Village';
 
 interface CoordinatesProps {
     lat: string;
@@ -18,38 +19,58 @@ const Coordinates: FC<CoordinatesProps> = ({ lat, lng }) => {
     const { currentScreen, switchToScreen } = useRenderScreen('coordinates');
     const [latitude, setLatitude] = useState(lat || '');
     const [longitude, setLongitude] = useState(lng || '');
-    const mapProjection = {
-        center: [parseFloat(longitude), parseFloat(latitude)],
-        scale: 800,
-    };
+    const [map, setMap] = useState<any>(null);
+
+    useEffect(() => {
+        const osmMap = osm().position(parseFloat(latitude), parseFloat(longitude));
+        setMap(osmMap);
+    }, [latitude, longitude]);
 
     const renderMap = () => {
-        return (
-            <div className={styles.mapContainer}>
-                <ComposableMap
-                    projectionConfig={mapProjection}
-                    width={400}
-                    height={280}
-                >
-                    <Geographies geography="/features.json">
-                        {({ geographies }) =>
-                            geographies.map((geo) => (
-                                <Geography
-                                    key={geo.rsmKey}
-                                    geography={geo}
-                                    fill="#ECEFF1"
-                                    stroke="#607D8B"
-                                />
-                            ))
-                        }
-                    </Geographies>
-                    <Marker coordinates={[parseFloat(longitude), parseFloat(latitude)]}>
-                        <circle r={6} fill="#F00" />
-                    </Marker>
-                </ComposableMap>
-            </div>
-        );
+        if (map) {
+            const mapHtml = map.show().outerHTML;
+            return (
+                <div
+                    className={styles.mapContainer}
+                    dangerouslySetInnerHTML={{ __html: mapHtml }}
+                />
+            );
+        }
+        return null;
     };
+
+    // const mapProjection = {
+    //     center: [parseFloat(longitude), parseFloat(latitude)],
+    //     scale: 800,
+    // };
+
+    // const renderMap = () => {
+    //     return (
+    //         <div className={styles.mapContainer}>
+    //             <ComposableMap
+    //                 projectionConfig={mapProjection}
+    //                 width={400}
+    //                 height={280}
+    //             >
+    //                 <Geographies geography="/features.json">
+    //                     {({ geographies }) =>
+    //                         geographies.map((geo) => (
+    //                             <Geography
+    //                                 key={geo.rsmKey}
+    //                                 geography={geo}
+    //                                 fill="#ECEFF1"
+    //                                 stroke="#607D8B"
+    //                             />
+    //                         ))
+    //                     }
+    //                 </Geographies>
+    //                 <Marker coordinates={[parseFloat(longitude), parseFloat(latitude)]}>
+    //                     <circle r={6} fill="#F00" />
+    //                 </Marker>
+    //             </ComposableMap>
+    //         </div>
+    //     );
+    // };
 
     const renderScreen = () => {
         switch (currentScreen) {
@@ -109,8 +130,8 @@ const Coordinates: FC<CoordinatesProps> = ({ lat, lng }) => {
                         <Footer onBack={routeBack} onBackUrl='/' onForward={switchRoute} />
                     </div>
                 )
-            case 'verbal':
-                return <Verbal />
+            case 'village':
+                return <Village />
             case 'previous_route':
                 return <ProfilePicture />
         }
@@ -133,7 +154,7 @@ const Coordinates: FC<CoordinatesProps> = ({ lat, lng }) => {
     };
 
     const switchRoute = () => {
-        switchToScreen('verbal');
+        switchToScreen('village');
     };
 
     const routeBack = () => {

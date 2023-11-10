@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Savings from '@icons/savings.svg';
 import styles from './SupaMotoScreens.module.scss';
 import IconText from '@components/IconText/IconText';
@@ -10,6 +10,13 @@ import Footer from '@components/Footer/Footer';
 const MonthlySavings = () => {
     const [amount, setAmount] = useState(0);
     const { currentScreen, switchToScreen } = useRenderScreen('monthly_savings');
+
+    useEffect(() => {
+        const monthlySavings = localStorage.getItem('monthlySavings');
+        if (monthlySavings) {
+            setAmount(parseInt(monthlySavings, 10));
+        }
+    }, []);
 
     const handleAmountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const newAmount = parseInt(event.target.value, 10) + 100;

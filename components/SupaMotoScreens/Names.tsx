@@ -9,8 +9,8 @@ import OnboardingLanguage from './OnboardingLanguage';
 
 const Names = () => {
     const { currentScreen, switchToScreen } = useRenderScreen('names');
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
+    const [firstName, setFirstName] = useState(localStorage.getItem('firstName') || '');
+    const [lastName, setLastName] = useState(localStorage.getItem('lastName') || '');
 
     const handleFirstNameChange = (event: any) => {
         setFirstName(event.target.value);
@@ -21,8 +21,10 @@ const Names = () => {
     };
 
     const saveNamesToLocalStorage = () => {
-        const fullNamesToSave = `${firstName} ${lastName}`;
-        localStorage.setItem('storedNames', fullNamesToSave);
+        // const fullNamesToSave = `${firstName} ${lastName}`;
+        // localStorage.setItem('storedNames', fullNamesToSave);
+        localStorage.setItem('firstName', firstName);
+        localStorage.setItem('lastName', lastName);
     };
 
     const renderScreen = () => {
@@ -41,6 +43,7 @@ const Names = () => {
                                         className={styles.inputs}
                                         type='text'
                                         placeholder='Name'
+                                        value={firstName}
                                         onChange={handleFirstNameChange} />
                                 </div><br />
                                 <div>
@@ -51,6 +54,7 @@ const Names = () => {
                                         className={styles.inputs}
                                         type='text'
                                         placeholder='Surname'
+                                        value={lastName}
                                         onChange={handleLastNameChange} />
                                 </div>
                             </div>

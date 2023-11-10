@@ -49,7 +49,8 @@ const VerifyData: FC<Props> = ({ header }) => {
     }, []);
 
     const storedLanguageJSON = localStorage.getItem('selectedLanguage');
-    const storedNamesJSON = localStorage.getItem('storedNames');
+    const storedfirstNameJSON = localStorage.getItem('firstName');
+    const storedlastNameJSON = localStorage.getItem('lastName');
     const storedDobJSON = localStorage.getItem('storedDob');
     const storedHouseholdJSON = localStorage.getItem('storedHousehold');
 
@@ -98,7 +99,9 @@ const VerifyData: FC<Props> = ({ header }) => {
                         }} >
                             <Names />
                         </div>
-                        <div>{storedNamesJSON}</div>
+                        <div>
+                            {storedfirstNameJSON} {storedlastNameJSON}
+                        </div>
                     </EmptyTab>
 
                     {/* Dob */}
