@@ -22,7 +22,8 @@ const Coordinates: FC<CoordinatesProps> = ({ lat, lng }) => {
     const [map, setMap] = useState<any>(null);
 
     useEffect(() => {
-        const osmMap = osm().position(parseFloat(latitude), parseFloat(longitude));
+        // const osmMap = osm().position(parseFloat(latitude), parseFloat(longitude));
+        const osmMap = osm().position(parseFloat(latitude), parseFloat(longitude)).radius(0.008);
         setMap(osmMap);
     }, [latitude, longitude]);
 
