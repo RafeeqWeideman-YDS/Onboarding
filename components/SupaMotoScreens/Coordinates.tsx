@@ -6,8 +6,7 @@ import LocationWhite from '@icons/location_white.svg';
 import { useRenderScreen } from '@hooks/useRenderScreen';
 import Footer from '@components/Footer/Footer';
 import ProfilePicture from './ProfilePicture';
-// import { ComposableMap, Geographies, Geography, Marker } from 'react-simple-maps';
-import osm from 'osm';
+// import osm from 'osm';
 import Village from './Village';
 
 interface CoordinatesProps {
@@ -21,24 +20,42 @@ const Coordinates: FC<CoordinatesProps> = ({ lat, lng }) => {
     const [longitude, setLongitude] = useState(lng || '');
     const [map, setMap] = useState<any>(null);
 
-    useEffect(() => {
-        const osmMap = osm().position(parseFloat(latitude), parseFloat(longitude));
-        // const osmMap = osm().position(parseFloat(latitude), parseFloat(longitude)).radius(0.008);
-        setMap(osmMap);
-    }, [latitude, longitude]);
-
     const renderMap = () => {
-        if (map) {
-            const mapHtml = map.show().outerHTML;
+        if (latitude && longitude) {
+            const iframeSrc = `https://www.openstreetmap.org/export/embed.html?layer=mapnik&bbox=${parseFloat(longitude) - 0.002},${parseFloat(latitude) - 0.001},${parseFloat(longitude) + 0.002},${parseFloat(latitude) + 0.001}&marker=${parseFloat(latitude)},${parseFloat(longitude)}`;
             return (
-                <div
-                    className={styles.mapContainer}
-                    dangerouslySetInnerHTML={{ __html: mapHtml }}
-                />
+                <div className={styles.mapContainer}>
+                    <iframe
+                        title="OpenStreetMap"
+                        width="100%"
+                        height="250"
+                        frameBorder="0"
+                        scrolling="no"
+                        src={iframeSrc}
+                    ></iframe>
+                </div>
             );
         }
         return null;
     };
+
+    // useEffect(() => {
+    //     const osmMap = osm().position(parseFloat(latitude), parseFloat(longitude));
+    //     setMap(osmMap);
+    // }, [latitude, longitude]);
+
+    // const renderMap = () => {
+    //     if (map) {
+    //         const mapHtml = map.show().outerHTML;
+    //         return (
+    //             <div
+    //                 className={styles.mapContainer}
+    //                 dangerouslySetInnerHTML={{ __html: mapHtml }}
+    //             />
+    //         );
+    //     }
+    //     return null;
+    // };
 
     // const mapProjection = {
     //     center: [parseFloat(longitude), parseFloat(latitude)],
