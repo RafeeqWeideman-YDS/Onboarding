@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react'
+import React, { FC, useContext, useEffect, useState } from 'react'
 import IconText from '@components/IconText/IconText';
 import Header from '@components/Header/Header';
 import Check from '@icons/check.svg';
@@ -17,10 +17,38 @@ import Location from '@icons/location_et.svg';
 import Cell from '@icons/cell_et.svg';
 import Verbal from '@icons/verbal_et.svg';
 import PenET from '@icons/pen_et.svg';
+import { defaultTrxFeeOption, generateStoreUserDataTrx } from '@utils/transactions';
+import { broadCastMessages } from '@utils/wallets';
+import { TRX_MSG } from 'types/transactions';
+import { WalletContext } from '@contexts/wallet';
+import { KEPLR_CHAIN_INFO_TYPE } from 'types/chain';
+import { ChainContext } from '@contexts/chain';
+import Footer from '@components/Footer/Footer';
 
 type Props = {
     header?: string;
 }
+
+export type MsgUserData = {
+    firstName: string;
+    lastName: string;
+    dob: string;
+    gender: string;
+    household: number;
+    status: string;
+    monthlyIncome: number;
+    monthlySavings: number;
+    monthlyCharcoal: number;
+    monthlyCharcoalExpense: number;
+    stoveUsage: string;
+    village: string;
+    profilePicture: string;
+    latitude: string;
+    longitude: string;
+    phoneNumber: string;
+    verbalLanguage: string;
+    capturedPolicy: string;
+};
 
 const VerifyData: FC<Props> = ({ header }) => {
     const [image, setImage] = useState<string | null>(null);
@@ -28,6 +56,9 @@ const VerifyData: FC<Props> = ({ header }) => {
     const [profile, setProfile] = useState<string | null>(null);
     const [contract, setContract] = useState<string | null>(null);
     const [waiver, setWaiver] = useState<string | null>(null);
+    const { wallet } = useContext(WalletContext);
+    const { chainInfo } = useContext(ChainContext);
+    const [loading, setLoading] = useState<boolean>(false);
 
     const loadImage = () => {
         const storedImage = localStorage.getItem('capturedIdFront');
@@ -84,6 +115,45 @@ const VerifyData: FC<Props> = ({ header }) => {
             </>
         )
     }
+
+    const signTX = async (): Promise<void> => {
+        setLoading(true);
+        const userData: MsgUserData = {
+            firstName: storedfirstNameJSON || '',
+            lastName: storedlastNameJSON || '',
+            dob: storedDobJSON || '',
+            gender: storedGenderToJSON || '',
+            household: storedHouseholdJSON ? parseInt(storedHouseholdJSON) : 0,
+            status: storedStatusToJSON || '',
+            monthlyIncome: storedIncomeToJSON ? parseInt(storedIncomeToJSON) : 0,
+            monthlySavings: storedSavingsToJSON ? parseInt(storedSavingsToJSON) : 0,
+            monthlyCharcoal: storedCharcoalToJSON ? parseInt(storedCharcoalToJSON) : 0,
+            monthlyCharcoalExpense: storedCharcoalExToJSON ? parseInt(storedCharcoalExToJSON) : 0,
+            stoveUsage: storedUsageToJSON || '',
+            village: storedVillageToJSON || '',
+            profilePicture: profile || '',
+            latitude: storedLatToJSON || '',
+            longitude: storedLongToJSON || '',
+            phoneNumber: storedCellToJSON || '',
+            verbalLanguage: storedVerbalToJSON || '',
+            capturedPolicy: storedPolicyToJSON || '',
+        };
+        const trxs: TRX_MSG[] = [
+            generateStoreUserDataTrx(userData)
+        ];
+        const hash = await broadCastMessages(
+            wallet,
+            trxs,
+            undefined,
+            defaultTrxFeeOption,
+            '',
+            chainInfo as KEPLR_CHAIN_INFO_TYPE,
+        );
+        if (hash) {
+            console.log('Transaction successful. Hash:', hash);
+        }
+        setLoading(false);
+    };
 
     return (
         <>
@@ -444,6 +514,7 @@ const VerifyData: FC<Props> = ({ header }) => {
                         </div>
                     </div>
                 </>
+                <Footer onBack={null} onBackUrl='/' onCorrect={signTX} />
             </main>
         </>
     )

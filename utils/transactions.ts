@@ -1,3 +1,5 @@
+import { MsgStoreUserData } from '@components/SupaMotoScreens/MsgStoreUserData';
+import { MsgUserData } from '@components/SupaMotoScreens/VerifyData';
 import { cosmos } from '@ixo/impactxclient-sdk';
 import { Coin } from '@ixo/impactxclient-sdk/types/codegen/cosmos/base/v1beta1/coin';
 
@@ -150,3 +152,50 @@ export const generateWithdrawRewardTrx = ({
     validatorAddress,
   }),
 });
+
+export const generateStoreUserDataTrx = (userData: MsgUserData): TRX_MSG => {
+  const {
+    firstName,
+    lastName,
+    dob,
+    gender,
+    household,
+    status,
+    monthlyIncome,
+    monthlySavings,
+    monthlyCharcoal,
+    monthlyCharcoalExpense,
+    stoveUsage,
+    village,
+    profilePicture,
+    latitude,
+    longitude,
+    phoneNumber,
+    verbalLanguage,
+    capturedPolicy,
+  } = userData;
+  const transaction: TRX_MSG = {
+    typeUrl: 'MsgStoreUserData',
+    value: MsgStoreUserData.fromPartial({
+      firstName,
+      lastName,
+      dob,
+      gender,
+      household,
+      status,
+      monthlyIncome,
+      monthlySavings,
+      monthlyCharcoal,
+      monthlyCharcoalExpense,
+      stoveUsage,
+      village,
+      profilePicture,
+      latitude,
+      longitude,
+      phoneNumber,
+      verbalLanguage,
+      capturedPolicy,
+    }),
+  };
+  return transaction;
+};

@@ -116,7 +116,6 @@ const PrivacyPolicy: FC<GetCameraImageProps> = ({ onSuccess, onBack, Width, Heig
                 return (
                     <>
                         <VerifyData />
-                        <Footer onBack={routeBack} onBackUrl='/' onCorrect={() => switchRoute2()} />
                     </>
                 )
             case 'success':
