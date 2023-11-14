@@ -40,7 +40,7 @@ const Names = () => {
                                         className={styles.label}
                                     >First Name</label><br />
                                     <input
-                                        className={styles.inputs}
+                                        className={`${styles.inputs} ${styles['center-text']}`}
                                         type='text'
                                         placeholder='Name'
                                         value={firstName}
@@ -51,7 +51,7 @@ const Names = () => {
                                         className={styles.label}
                                     >Last Name</label><br />
                                     <input
-                                        className={styles.inputs}
+                                        className={`${styles.inputs} ${styles['center-text']}`}
                                         type='text'
                                         placeholder='Surname'
                                         value={lastName}

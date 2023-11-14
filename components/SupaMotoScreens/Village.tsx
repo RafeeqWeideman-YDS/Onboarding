@@ -32,7 +32,7 @@ const Village = () => {
                         <IconText title='Village' Img={VillageSvg} imgSize={70} />
                         <div className={styles.table} >
                             <input
-                                className={styles.inputs}
+                                className={`${styles.inputs} ${styles['center-text']}`}
                                 type='text'
                                 value={village}
                                 onChange={handleVillageChange} />
