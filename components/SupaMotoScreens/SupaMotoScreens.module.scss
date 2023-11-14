@@ -43,6 +43,14 @@ $grey_light: #F0F0F0;
     align-items: center;
 }
 
+.verifyData {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    left: 50px;
+}
+
 .progressBarContainer {
     top: -60px;
     width: 100%;

@@ -82,6 +82,7 @@ const Contract: FC<GetCameraImageProps> = ({ onSuccess, onBack, Width, Height, h
                                     frameWidth={230}
                                     frameHeight={330}
                                     ref={cameraRef}
+                                    facingMode='environment'
                                 />
                             </div>
                         </main>

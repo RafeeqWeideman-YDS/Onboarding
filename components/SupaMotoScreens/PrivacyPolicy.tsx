@@ -82,6 +82,7 @@ const PrivacyPolicy: FC<GetCameraImageProps> = ({ onSuccess, onBack, Width, Heig
                                     frameWidth={230}
                                     frameHeight={330}
                                     ref={cameraRef}
+                                    facingMode='environment'
                                 />
                             </div>
                         </main>
@@ -115,7 +116,9 @@ const PrivacyPolicy: FC<GetCameraImageProps> = ({ onSuccess, onBack, Width, Heig
             case 'data_verification':
                 return (
                     <>
-                        <VerifyData />
+                        <div className={styles.verifyData} >
+                            <VerifyData />
+                        </div>
                     </>
                 )
             case 'success':

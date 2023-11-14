@@ -83,6 +83,7 @@ const CustomerIdBack: FC<GetCameraImageProps> = ({ onSuccess, onBack, Width, Hei
                                     frameWidth={300}
                                     frameHeight={200}
                                     ref={cameraRef}
+                                    facingMode='environment'
                                 />
                             </div>
                         </main>
