@@ -13,9 +13,10 @@ type CustomCameraProps = {
   width: number;
   frameWidth: number;
   frameHeight: number;
+  facingMode: 'user' | 'environment';
 };
 
-const CustomCamera = ({ height, width, frameWidth, frameHeight }: CustomCameraProps, ref: Ref<CustomCameraRef>) => {
+const CustomCamera = ({ height, width, frameWidth, frameHeight, facingMode }: CustomCameraProps, ref: Ref<CustomCameraRef>) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const streamRef = useRef<MediaStream | undefined>();
@@ -26,7 +27,7 @@ const CustomCamera = ({ height, width, frameWidth, frameHeight }: CustomCameraPr
     return () => {
       stopStream();
     };
-  }, []);
+  }, [facingMode]);
 
   const stopStream = (stream: MediaStream | undefined = streamRef.current) => {
     if (stream) {
@@ -59,7 +60,7 @@ const CustomCamera = ({ height, width, frameWidth, frameHeight }: CustomCameraPr
   };
 
   const startCamera = () => {
-    navigator.mediaDevices.getUserMedia({ video: true }).then((mediaStream) => {
+    navigator.mediaDevices.getUserMedia({ video: { facingMode: facingMode } }).then((mediaStream) => {
       if (streamRef.current) stopStream();
       streamRef.current = mediaStream;
       if (videoRef.current) {

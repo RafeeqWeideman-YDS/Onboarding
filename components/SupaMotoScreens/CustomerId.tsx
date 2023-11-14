@@ -74,6 +74,7 @@ const CustomerId: FC<GetCameraImageProps> = ({ onSuccess, onBack, Width, Height,
                                     frameWidth={300}
                                     frameHeight={200}
                                     ref={cameraRef}
+                                    facingMode='environment'
                                 />
                             </div>
                         </main>
