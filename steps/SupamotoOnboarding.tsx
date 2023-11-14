@@ -23,7 +23,7 @@ const SupaMotoOnboarding: FC<SupaMotoOnboardingProps> = ({ loading = false, onSu
                 {loading ? (
                     <Loader />
                 ) : (
-                    <div className={styles.stepContainer} >
+                    <div className={styles.onboardingComponent} >
                         <OnboardingLanguage />
                     </div>
                 )}
