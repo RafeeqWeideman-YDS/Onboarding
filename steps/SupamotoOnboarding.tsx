@@ -19,7 +19,6 @@ const SupaMotoOnboarding: FC<SupaMotoOnboardingProps> = ({ loading = false, onSu
     return (
         <>
             <Header />
-            <main className={cls(utilsStyles.main, utilsStyles.columnJustifyCenter, styles.stepContainer)}>
                 <div className={utilsStyles.spacer3} />
                 {loading ? (
                     <Loader />
@@ -29,7 +28,6 @@ const SupaMotoOnboarding: FC<SupaMotoOnboardingProps> = ({ loading = false, onSu
                     </div>
                 )}
                 <div className={utilsStyles.spacer3} />
-            </main>
 
         </>
     );
