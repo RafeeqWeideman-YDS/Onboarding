@@ -5,6 +5,7 @@ import styles from '@styles/stepsPages.module.scss';
 import Header from '@components/Header/Header';
 import Loader from '@components/Loader/Loader';
 import OnboardingLanguage from '@components/SupaMotoScreens/OnboardingLanguage';
+import onboardingStyles from '@components/SupaMotoScreens/SupaMotoScreens.module.scss';
 import { StepConfigType, StepDataType, STEPS } from 'types/steps';
 
 type SupaMotoOnboardingProps = {
@@ -23,7 +24,7 @@ const SupaMotoOnboarding: FC<SupaMotoOnboardingProps> = ({ loading = false, onSu
                 {loading ? (
                     <Loader />
                 ) : (
-                    <div className={styles.onboardingComponent} >
+                    <div className={onboardingStyles.onboardingComponent} >
                         <OnboardingLanguage />
                     </div>
                 )}
