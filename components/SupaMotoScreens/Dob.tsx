@@ -89,13 +89,13 @@ const Dob = () => {
                                 {
                                     days ? (
                                         <div>
-                                            {/* <div className={styles.closeContainer} >
-                                            </div> */}
+                                            <div className={styles.closeContainer} >
                                                 <button
                                                     className={styles.closeBtnDays}
                                                     onClick={handleDays}>
                                                     <IconText title='' Img={Close} imgSize={30} />
                                                 </button>
+                                            </div>
                                             <div className={styles.toggleBox} >
                                                 {Array.from({ length: 31 }, (_, index) => (
                                                     <DayInput

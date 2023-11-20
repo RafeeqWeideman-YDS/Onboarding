@@ -32,28 +32,28 @@ $grey_light: #F0F0F0;
     align-items: center;
 }
 
-// .closeContainer {
-//     display: flex;
-//     justify-content: center;
-//     align-items: center;
-//     position: relative;
-// }
+.closeContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
 
 .closeBtn {
     top: 1rem;
-    left: 11.2rem;
+    // left: 11.2rem;
     position: relative;
     border-style: none;
 }
 
 .closeBtnDays {
-    height: 50px;
-    width: 50px;
+    // height: 50px;
+    // width: 50px;
     border-style: none;
     background-color: transparent;
     position: absolute;
-    left: 10.3rem;
-    top: 1rem;
+    // left: 10.3rem;
+    top: -1rem;
 }
 
 .spaceAround {
