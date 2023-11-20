@@ -42,7 +42,7 @@ const Names = () => {
                                     <input
                                         className={`${styles.inputs} ${styles['center-text']}`}
                                         type='text'
-                                        placeholder='Name'
+                                        // placeholder='Name'
                                         value={firstName}
                                         onChange={handleFirstNameChange} />
                                 </div><br />
@@ -53,7 +53,7 @@ const Names = () => {
                                     <input
                                         className={`${styles.inputs} ${styles['center-text']}`}
                                         type='text'
-                                        placeholder='Surname'
+                                        // placeholder='Surname'
                                         value={lastName}
                                         onChange={handleLastNameChange} />
                                 </div>

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Calendar from '@icons/calendar.svg';
+import Close from '@icons/close.svg';
 import styles from './SupaMotoScreens.module.scss';
 import IconText from '@components/IconText/IconText';
 import DayInput from '../DayInput/DayInput';
@@ -22,6 +23,11 @@ const Dob = () => {
     const [selectedDay, setSelectedDay] = useState('');
     const [selectedMonth, setSelectedMonth] = useState<string | null>(null);
     const [selectedYear, setSelectedYear] = useState('');
+    // const [isContainerVisible, setContainerVisible] = useState(false);
+
+    // const toggleContainer = () => {
+    //     setContainerVisible(!isContainerVisible);
+    // };
 
     useEffect(() => {
         const storedDay = localStorage.getItem('selectedDay');
@@ -79,10 +85,17 @@ const Dob = () => {
                                     onChange={(e) => setSelectedYear(e.target.value)}
                                 />
                             </div>
-                            <div className={styles.toggleBoxContainer}>
+                            <div className={`${styles.containerBox} ${days && styles.active}`}>
                                 {
                                     days ? (
                                         <div>
+                                            {/* <div className={styles.closeContainer} >
+                                            </div> */}
+                                                <button
+                                                    className={styles.closeBtnDays}
+                                                    onClick={handleDays}>
+                                                    <IconText title='' Img={Close} imgSize={30} />
+                                                </button>
                                             <div className={styles.toggleBox} >
                                                 {Array.from({ length: 31 }, (_, index) => (
                                                     <DayInput
@@ -100,10 +113,17 @@ const Dob = () => {
                                     )
                                 }
                             </div>
-                            <div className={styles.toggleBoxContainer}>
+                            <div className={`${styles.containerBoxMonths} ${months && styles.active}`}>
                                 {
                                     months ? (
                                         <div>
+                                            <div className={styles.closeContainer} >
+                                                <button
+                                                    className={styles.closeBtn}
+                                                    onClick={handleMonths}>
+                                                    <IconText title='' Img={Close} imgSize={30} />
+                                                </button>
+                                            </div>
                                             <div className={styles.toggleBoxMonths} >
                                                 {Months.map((month, index) => (
                                                     <MonthInput

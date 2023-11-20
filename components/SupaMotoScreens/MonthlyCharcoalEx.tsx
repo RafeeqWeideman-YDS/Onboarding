@@ -19,7 +19,8 @@ const MonthlyCharcoalEx = () => {
     }, []);
 
     const handleAmountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const newAmount = parseInt(event.target.value, 10);
+        let newAmount = parseInt(event.target.value, 10);
+        newAmount = Math.min(newAmount, 5000);
         setAmount(newAmount);
         localStorage.setItem('monthlyCharcoalExpense', newAmount.toString());
     };
@@ -40,7 +41,7 @@ const MonthlyCharcoalEx = () => {
                                 id="amount"
                                 name="amount"
                                 min="0"
-                                max="10000"
+                                max="5000"
                                 step="100"
                                 value={amount}
                                 onChange={handleAmountChange}

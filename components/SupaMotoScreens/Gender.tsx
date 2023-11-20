@@ -12,7 +12,7 @@ import Status from './Status';
 import HouseHold from './HouseHold';
 
 const Gender = () => {
-    const [status, setStatus] = useState('female');
+    const [status, setStatus] = useState('');
     const { currentScreen, switchToScreen } = useRenderScreen('gender');
 
     useEffect(() => {

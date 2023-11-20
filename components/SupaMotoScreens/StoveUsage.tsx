@@ -12,8 +12,8 @@ import CustomerId from './CustomerId';
 import Footer from '@components/Footer/Footer';
 
 const StoveUsage = () => {
-    const [status, setStatus] = useState('Home');
-    const [usage, setUsage] = useState("Commercial");
+    const [status, setStatus] = useState('');
+    const [usage, setUsage] = useState("");
     const { currentScreen, switchToScreen } = useRenderScreen('stove_usage');
 
     useEffect(() => {
@@ -25,9 +25,8 @@ const StoveUsage = () => {
 
     const handleStatusChange = (newStatus: string) => {
         setStatus(newStatus);
+        setUsage(prevUsage => (prevUsage === 'Home' ? 'Commercial' : 'Home'));
         localStorage.setItem('selectedUsage', newStatus);
-        setUsage(usage === 'Home' ? 'Commercial' : 'Home');
-        localStorage.setItem('selectedUsage', usage === 'Home' ? 'Commercial' : 'Home');
     };
 
     const renderScreen = () => {
@@ -42,10 +41,10 @@ const StoveUsage = () => {
                         <div className={styles.statusContainer} >
                             <button
                                 className={styles.statusBtn}
-                                style={{ backgroundColor: status === 'married' ? '#E0A714' : '#F0F0F0' }}
-                                onClick={() => handleStatusChange('married')}
+                                style={{ backgroundColor: status === 'home' ? '#E0A714' : '#F0F0F0' }}
+                                onClick={() => handleStatusChange('home')}
                             >
-                                {status === 'married' ? (
+                                {status === 'home' ? (
                                     <HomeWhite style={{ width: '40px', height: '40px' }} />
                                 ) : (
                                     <Home style={{ width: '40px', height: '40px' }} />
@@ -53,10 +52,10 @@ const StoveUsage = () => {
                             </button>
                             <button
                                 className={styles.statusBtn}
-                                style={{ backgroundColor: status === 'single' ? '#E0A714' : '#F0F0F0' }}
-                                onClick={() => handleStatusChange('single')}
+                                style={{ backgroundColor: status === 'commercial' ? '#E0A714' : '#F0F0F0' }}
+                                onClick={() => handleStatusChange('commercial')}
                             >
-                                {status === 'single' ? (
+                                {status === 'commercial' ? (
                                     <StoreWhite style={{ width: '40px', height: '40px' }} />
                                 ) : (
                                     <Store style={{ width: '40px', height: '40px' }} />

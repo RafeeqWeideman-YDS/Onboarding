@@ -12,8 +12,8 @@ import Footer from '@components/Footer/Footer';
 import Gender from './Gender';
 
 const Status = () => {
-    const [status, setStatus] = useState('single');
-    const [usage, setUsage] = useState("Single");
+    const [status, setStatus] = useState('');
+    const [usage, setUsage] = useState("");
     const { currentScreen, switchToScreen } = useRenderScreen('status');
 
     useEffect(() => {

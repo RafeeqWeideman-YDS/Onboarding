@@ -21,12 +21,22 @@ const HouseHold = () => {
     }, []);
 
     const incrementCount = () => {
-        setCount(count + 1);
+        if (count < 20) {
+            setCount((prevCount) => {
+                const newCount = prevCount + 1;
+                localStorage.setItem('storedHousehold', newCount.toString());
+                return newCount;
+            });
+        }
     };
 
     const decrementCount = () => {
         if (count > 0) {
-            setCount(count - 1);
+            setCount((prevCount) => {
+                const newCount = prevCount - 1;
+                localStorage.setItem('storedHousehold', newCount.toString());
+                return newCount;
+            });
         }
     };
 

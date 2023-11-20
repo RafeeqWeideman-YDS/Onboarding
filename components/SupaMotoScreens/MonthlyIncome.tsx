@@ -19,7 +19,8 @@ const MonthlyIncome = () => {
     }, []);
 
     const handleAmountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const newAmount = parseInt(event.target.value) + 100;
+        let newAmount = parseInt(event.target.value, 10) + 100;
+        newAmount = Math.min(newAmount, 10000);
         setAmount(newAmount);
         localStorage.setItem('monthlyIncome', newAmount.toString());
     };

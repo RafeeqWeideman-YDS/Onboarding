@@ -39,69 +39,18 @@ const Coordinates: FC<CoordinatesProps> = ({ lat, lng }) => {
         return null;
     };
 
-    // useEffect(() => {
-    //     const osmMap = osm().position(parseFloat(latitude), parseFloat(longitude));
-    //     setMap(osmMap);
-    // }, [latitude, longitude]);
-
-    // const renderMap = () => {
-    //     if (map) {
-    //         const mapHtml = map.show().outerHTML;
-    //         return (
-    //             <div
-    //                 className={styles.mapContainer}
-    //                 dangerouslySetInnerHTML={{ __html: mapHtml }}
-    //             />
-    //         );
-    //     }
-    //     return null;
-    // };
-
-    // const mapProjection = {
-    //     center: [parseFloat(longitude), parseFloat(latitude)],
-    //     scale: 800,
-    // };
-
-    // const renderMap = () => {
-    //     return (
-    //         <div className={styles.mapContainer}>
-    //             <ComposableMap
-    //                 projectionConfig={mapProjection}
-    //                 width={400}
-    //                 height={280}
-    //             >
-    //                 <Geographies geography="/features.json">
-    //                     {({ geographies }) =>
-    //                         geographies.map((geo) => (
-    //                             <Geography
-    //                                 key={geo.rsmKey}
-    //                                 geography={geo}
-    //                                 fill="#ECEFF1"
-    //                                 stroke="#607D8B"
-    //                             />
-    //                         ))
-    //                     }
-    //                 </Geographies>
-    //                 <Marker coordinates={[parseFloat(longitude), parseFloat(latitude)]}>
-    //                     <circle r={6} fill="#F00" />
-    //                 </Marker>
-    //             </ComposableMap>
-    //         </div>
-    //     );
-    // };
-
     const renderScreen = () => {
         switch (currentScreen) {
             case 'coordinates':
                 return (
                     <div className={styles.onboardingComponent} >
-                        <IconText title='GPS Coordinates' Img={Location} imgSize={50} />
+                        <IconText title='Location' Img={Location} imgSize={50} />
                         <form className={styles.table} >
                             <div>
                                 <div>
                                     <label
                                         className={styles.label}
-                                    >Latitude</label><br />
+                                    ></label><br />
                                     <input
                                         className={styles.inputs}
                                         type='text'
@@ -112,7 +61,7 @@ const Coordinates: FC<CoordinatesProps> = ({ lat, lng }) => {
                                 <div>
                                     <label
                                         className={styles.label}
-                                    >Longitude</label><br />
+                                    ></label><br />
                                     <input
                                         className={styles.inputs}
                                         type='text'
@@ -141,8 +90,8 @@ const Coordinates: FC<CoordinatesProps> = ({ lat, lng }) => {
                         <IconText title='GPS Coordinates' Img={Location} imgSize={50} />
                         {latitude && longitude && renderMap()}
                         <div className={styles.table} >
-                            <p style={{ position: 'relative', top: '-30px' }} >
-                                Is this Correct?
+                            <p style={{ position: 'relative', top: '-30px', textAlign: 'center' }} >
+                                Check if the location on the map is correct and select next.
                             </p>
                         </div>
                         <Footer onBack={routeBack} onBackUrl='/' onForward={switchRoute} />
