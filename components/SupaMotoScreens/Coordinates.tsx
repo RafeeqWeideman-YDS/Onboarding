@@ -90,7 +90,7 @@ const Coordinates: FC<CoordinatesProps> = ({ lat, lng }) => {
                         <IconText title='GPS Coordinates' Img={Location} imgSize={50} />
                         {latitude && longitude && renderMap()}
                         <div className={styles.table} >
-                            <p style={{ position: 'relative', top: '-30px', textAlign: 'center' }} >
+                            <p style={{ position: 'relative', top: '-30px', textAlign: 'center', fontSize: '12px' }} >
                                 Check if the location on the map is correct and select next.
                             </p>
                         </div>
