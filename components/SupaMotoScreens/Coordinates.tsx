@@ -19,10 +19,12 @@ const Coordinates: FC<CoordinatesProps> = ({ lat, lng }) => {
     const [latitude, setLatitude] = useState(lat || '');
     const [longitude, setLongitude] = useState(lng || '');
     const [map, setMap] = useState<any>(null);
+    const iframeRef = useRef(null);
 
     const renderMap = () => {
         if (latitude && longitude) {
             const iframeSrc = `https://www.openstreetmap.org/export/embed.html?layer=mapnik&bbox=${parseFloat(longitude) - 0.002},${parseFloat(latitude) - 0.001},${parseFloat(longitude) + 0.002},${parseFloat(latitude) + 0.001}&marker=${parseFloat(latitude)},${parseFloat(longitude)}`;
+            
             return (
                 <div className={styles.mapContainer}>
                     <iframe
